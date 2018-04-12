@@ -12,10 +12,16 @@ class Widget extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.showTooltip = this.showTooltip.bind(this);
   }
 
   isValidNumber(s) {
     return /^\d*(\.\d*)?$/.test(s) && s !== '.';
+  }
+
+  showTooltip(name) {
+    window.setTimeout(() => this.setState({ ...this.state, [name]: false }), 2000);
+    this.setState({ ...this.state, [name]: true });
   }
 
   handleChange(fieldName, value) {
@@ -24,6 +30,7 @@ class Widget extends Component {
     }
 
     this.setState({
+      ...this.state,
       fraction: ((this.props.fraction / this.props[fieldName]) * value).toFixed(2),
       weight: ((this.props.weight / this.props[fieldName]) * value).toFixed(0),
       calories: ((this.props.calories / this.props[fieldName]) * value).toFixed(0),
@@ -62,8 +69,12 @@ class Widget extends Component {
         <div className="field">
           <label className="label">
             Carbs (g)
-            <span class="icon has-text-info tooltip" data-tooltip="Excluding dietary fiber">
-              <i class="fas fa-info-circle"></i>
+            <span
+              className={`icon has-text-info tooltip ${this.state['carb-info'] ? 'is-tooltip-active' : ''}`}
+              data-tooltip="Excluding dietary fiber"
+              onClick={e => this.showTooltip('carb-info')}
+            >
+              <i className="fas fa-info-circle"></i>
             </span>
           </label>
 
