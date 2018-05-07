@@ -105,19 +105,4 @@ class Widget extends Component {
   }
 }
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container">
-        <h1 className="title">
-          Type 1 Kitchen
-        </h1>
-        <p className="subtitle">
-          Recipe calculator <strong>prototype</strong>
-        </p>
-        <Widget fraction="0.5" weight="276" calories="450" carbs="40" />
-      </div>);
-  }
-}
-
-export default App;
+export default Widget;
